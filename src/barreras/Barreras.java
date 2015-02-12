@@ -5,6 +5,10 @@
  */
 package barreras;
 
+import classes.Conexion;
+import java.sql.SQLException;
+
+
 /**
  *
  * @author cactus
@@ -13,11 +17,18 @@ public class Barreras {
 
     /**
      * @param args the command line arguments
+     * @throws java.sql.SQLException
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        // Test GIT 
-        // ASD
+    public static void main(String[] args) throws SQLException {
+        
+        /**
+        Conexion var;
+        var = Conexion.getConexion();
+        
+        String sql;
+        sql = "INSERT INTO test VALUES (3, 'Loky', 'Salchichon');";
+        var.realizarUpdate(sql);
+        **/
     }
     
 }
