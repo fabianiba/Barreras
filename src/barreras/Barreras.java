@@ -28,7 +28,7 @@ public class Barreras {
         String sql;
         sql = "INSERT INTO test VALUES (3, 'Loky', 'Salchichon');";
         var.realizarUpdate(sql);
-        **/
+        Ahora edito esta mierda**/
     }
     
 }
