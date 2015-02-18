@@ -21,14 +21,16 @@ public class Barreras {
      */
     public static void main(String[] args) throws SQLException {
         
-        /**
-        Conexion var;
-        var = Conexion.getConexion();
+        // Obtener Conexion
+        Conexion conexionActual;
+        conexionActual = Conexion.getConexion();
         
         String sql;
-        sql = "INSERT INTO test VALUES (3, 'Loky', 'Salchichon');";
-        var.realizarUpdate(sql);
-        **/
+        sql = "INSERT INTO test VALUES (4, 'Juan', 'Perez');";
+        conexionActual.realizarUpdate(sql);
+        
+        
+        // TipoObjCrear var = conexionActual.realizarQuery(sql);
     }
     
 }
