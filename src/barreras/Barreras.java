@@ -26,7 +26,7 @@ public class Barreras {
         conexionActual = Conexion.getConexion();
         
         String sql;
-        sql = "INSERT INTO test VALUES (4, 'Juan', 'Perez');";
+        sql = "INSERT INTO test VALUES (5, 'Testeando', 'Perez');";
         conexionActual.realizarUpdate(sql);
         
         
