@@ -26,11 +26,12 @@ public class Barreras {
         conexionActual = Conexion.getConexion();
         
         String sql;
-        sql = "INSERT INTO test VALUES (5, 'Testeando', 'Perez');";
+        sql = "INSERT INTO test VALUES (5, 'Testea', 'Perez');";
         conexionActual.realizarUpdate(sql);
         
         
         // TipoObjCrear var = conexionActual.realizarQuery(sql);
+        // Veremos como git maneja el .gitignore
     }
     
 }
