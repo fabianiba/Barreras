@@ -61,4 +61,32 @@ public class Conexion {
             System.out.println(message);
         }
     }
+    
+    public Object[][] realizarQuery(String sql) {
+        
+    }
+    /**
+     * 
+     * @param rsmd
+     * @return String[]
+     * @throws SQLException
+     * Retorna un array de Strings con los nombres de las columnas
+     */
+    private String[] getNamesCols(ResultSetMetaData rsmd) throws SQLException {
+        String[] nombres;
+        int cols;
+        
+        try {
+            cols = rsmd.getColumnCount();
+            nombres = new String[cols];
+            for (int i = 0; i < cols; i++) {
+                nombres[i] = rsmd.getColumnName(i);
+            }
+        }
+        catch(SQLException e) {
+            e.getMessage();
+        }
+        
+        return nombres;    
+    }
 }
