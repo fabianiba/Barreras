@@ -7,7 +7,9 @@ package barreras;
 
 import classes.Conexion;
 import java.sql.SQLException;
-
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.Statement;
 
 /**
  *
@@ -25,9 +27,6 @@ public class Barreras {
         Conexion conexionActual;
         conexionActual = Conexion.getConexion();
         
-        String sql;
-        sql = "INSERT INTO test VALUES (5, 'Testea', 'Perez');";
-        conexionActual.realizarUpdate(sql);
         
         
         

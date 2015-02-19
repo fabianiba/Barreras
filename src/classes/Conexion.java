@@ -61,25 +61,49 @@ public class Conexion {
             System.out.println(message);
         }
     }
-    
-    public Object[][] realizarQuery(String sql) {
+   
+    public void realizarQuery(String sql) throws SQLException {
+        ResultSetMetaData rsmd = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        String[] columsNames = null;
+
         
+        try {
+            stmt = conex.createStatement(ResultSet.CONCUR_UPDATABLE,
+                                         ResultSet.TYPE_SCROLL_SENSITIVE);
+            
+            rs = stmt.executeQuery(sql);
+            
+            rsmd = rs.getMetaData();
+            columsNames = this.getNamesCols(rsmd);
+            for (int i = 0; i <= columsNames.length; i++) {
+                System.out.println(columsNames[i]);
+            }
+            
+            
+            
+        }
+        catch(SQLException e) {
+            e.getMessage();
+        }   
     }
+    
     /**
      * 
      * @param rsmd
      * @return String[]
      * @throws SQLException
-     * Retorna un array de Strings con los nombres de las columnas
+     * Returns a string array with the columns name of the table
      */
     private String[] getNamesCols(ResultSetMetaData rsmd) throws SQLException {
-        String[] nombres;
+        String[] nombres = null;
         int cols;
         
         try {
             cols = rsmd.getColumnCount();
             nombres = new String[cols];
-            for (int i = 0; i < cols; i++) {
+            for (int i = 1; cols >= i; i++) {
                 nombres[i] = rsmd.getColumnName(i);
             }
         }
