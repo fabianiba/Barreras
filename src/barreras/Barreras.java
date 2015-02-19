@@ -30,8 +30,7 @@ public class Barreras {
         conexionActual.realizarUpdate(sql);
         
         
-        // TipoObjCrear var = conexionActual.realizarQuery(sql);
-        // Veremos como git maneja el .gitignore
+        
     }
     
 }
