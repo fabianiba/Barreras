@@ -27,6 +27,7 @@ public class Barreras {
         Conexion conexionActual;
         conexionActual = Conexion.getConexion();
         
+        conexionActual.realizarQuery("select * from testfecha;");
         
         
         

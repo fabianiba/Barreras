@@ -62,11 +62,12 @@ public class Conexion {
         }
     }
    
-    public void realizarQuery(String sql) throws SQLException {
+    public Object[][] realizarQuery(String sql) throws SQLException {
         ResultSetMetaData rsmd = null;
         Statement stmt = null;
         ResultSet rs = null;
         String[] columsNames = null;
+        String[][] resultQuery = null;
 
         
         try {
@@ -77,16 +78,13 @@ public class Conexion {
             
             rsmd = rs.getMetaData();
             columsNames = this.getNamesCols(rsmd);
-            for (int i = 0; i <= columsNames.length; i++) {
-                System.out.println(columsNames[i]);
-            }
-            
-            
             
         }
         catch(SQLException e) {
-            e.getMessage();
-        }   
+            e.printStackTrace();
+        }
+        
+        return resultQuery;
     }
     
     /**
@@ -103,7 +101,7 @@ public class Conexion {
         try {
             cols = rsmd.getColumnCount();
             nombres = new String[cols];
-            for (int i = 1; cols >= i; i++) {
+            for (int i = 1; cols >= (i + 1); i++) {
                 nombres[i] = rsmd.getColumnName(i);
             }
         }
