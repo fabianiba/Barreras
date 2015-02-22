@@ -61,21 +61,42 @@ public class Conexion {
             System.out.println(message);
         }
     }
-   
+    
+    
     public Object[][] realizarQuery(String sql) throws SQLException {
-        ResultSetMetaData rsmd = null;
+        ResultSetMetaData rsmd;
         Statement stmt;
         ResultSet rs;
         Object[][] resultQuery = null;
+        String[] nombresCols;
         int cols;
         int rows;
         
         try {
             stmt = conex.createStatement(ResultSet.CONCUR_UPDATABLE,
                                          ResultSet.TYPE_SCROLL_SENSITIVE);
-            
             rs = stmt.executeQuery(sql);
             rsmd = rs.getMetaData();
+            
+            cols = rsmd.getColumnCount();
+            rs.last();
+            rows = rs.getRow();
+            resultQuery = new Object[rows + 1][cols];
+            
+            nombresCols = this.getNamesCols(rsmd);
+            System.arraycopy(nombresCols, 0, resultQuery[0], 0, cols);
+            
+            rs.first();
+            for (int i = 1; i < rows + 1; i++) {
+                for (int j = 0; j < cols; j++) {
+                    resultQuery[i][j] = rs.getString(i);
+                    rs.next();
+                }
+                rs.relative(1);
+            }
+            
+            
+            
         }
         catch(SQLException e) {
             e.getMessage();
