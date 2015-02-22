@@ -64,24 +64,21 @@ public class Conexion {
    
     public Object[][] realizarQuery(String sql) throws SQLException {
         ResultSetMetaData rsmd = null;
-        Statement stmt = null;
-        ResultSet rs = null;
-        String[] columsNames = null;
-        String[][] resultQuery = null;
-
+        Statement stmt;
+        ResultSet rs;
+        Object[][] resultQuery = null;
+        int cols;
+        int rows;
         
         try {
             stmt = conex.createStatement(ResultSet.CONCUR_UPDATABLE,
                                          ResultSet.TYPE_SCROLL_SENSITIVE);
             
             rs = stmt.executeQuery(sql);
-            
             rsmd = rs.getMetaData();
-            columsNames = this.getNamesCols(rsmd);
-            
         }
         catch(SQLException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         
         return resultQuery;
@@ -90,9 +87,8 @@ public class Conexion {
     /**
      * 
      * @param rsmd
-     * @return String[]
-     * @throws SQLException
-     * Returns a string array with the columns name of the table
+     * @return
+     * @throws SQLException 
      */
     private String[] getNamesCols(ResultSetMetaData rsmd) throws SQLException {
         String[] nombres = null;
@@ -101,8 +97,8 @@ public class Conexion {
         try {
             cols = rsmd.getColumnCount();
             nombres = new String[cols];
-            for (int i = 1; cols >= (i + 1); i++) {
-                nombres[i] = rsmd.getColumnName(i);
+            for (int i = 0; cols > i; i++) {
+                nombres[i] = rsmd.getColumnName(i + 1);
             }
         }
         catch(SQLException e) {
@@ -111,4 +107,6 @@ public class Conexion {
         
         return nombres;    
     }
+
+    
 }
