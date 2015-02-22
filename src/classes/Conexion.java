@@ -48,6 +48,11 @@ public class Conexion {
         }
     }
     
+    /**
+     * 
+     * @param sql
+     * @throws SQLException 
+     */
     public void realizarUpdate(String sql) throws SQLException {
         Statement stmt;
         stmt = conex.createStatement();
@@ -62,7 +67,13 @@ public class Conexion {
         }
     }
     
-    
+    /**
+     * 
+     * @param sql
+     * @return Object[][]
+     * @throws SQLException
+     * Retorna una matriz de Objetos con los datos de la consulta.
+     */
     public Object[][] realizarQuery(String sql) throws SQLException {
         ResultSetMetaData rsmd;
         Statement stmt;
@@ -89,19 +100,14 @@ public class Conexion {
             rs.first();
             for (int i = 1; i < rows + 1; i++) {
                 for (int j = 0; j < cols; j++) {
-                    resultQuery[i][j] = rs.getString(i);
-                    rs.next();
+                    resultQuery[i][j] = rs.getString(j + 1);
                 }
-                rs.relative(1);
-            }
-            
-            
-            
+                rs.next();
+            }   
         }
         catch(SQLException e) {
             e.getMessage();
         }
-        
         return resultQuery;
     }
     
@@ -125,7 +131,6 @@ public class Conexion {
         catch(SQLException e) {
             e.getMessage();
         }
-        
         return nombres;    
     }
 

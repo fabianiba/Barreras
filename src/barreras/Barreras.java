@@ -27,7 +27,16 @@ public class Barreras {
         Conexion conexionActual;
         conexionActual = Conexion.getConexion();
         
-        conexionActual.realizarQuery("select * from testfecha;");
+        Object[][] var;
+        var = conexionActual.realizarQuery("select * from testfecha;");
+        
+        
+        
+        for (Object[] var1 : var) {
+            for (int j = 0; j < var[0].length; j++) {
+                System.out.println(var1[j]);
+            }
+        }
         
         
         
