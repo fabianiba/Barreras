@@ -12,6 +12,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.sql.SQLException;
 import java.lang.ClassNotFoundException;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 
 /**
  *
@@ -48,6 +50,11 @@ public class Conexion {
         }
     }
     
+    /**
+     * 
+     * @param sql
+     * @throws SQLException 
+     */
     public void realizarUpdate(String sql) throws SQLException {
         Statement stmt;
         stmt = conex.createStatement();
@@ -60,5 +67,94 @@ public class Conexion {
             String message = e.getMessage();
             System.out.println(message);
         }
+    }
+    
+    /**
+     * 
+     * @param sql
+     * @return Object[][]
+     * @throws SQLException
+     * Retorna una matriz de Objetos con los datos de la consulta.
+     */
+    public Object[][] realizarQuery(String sql) throws SQLException {
+        ResultSetMetaData rsmd;
+        Statement stmt;
+        ResultSet rs;
+        Object[][] resultQuery = null;
+        String[] nombresCols;
+        int cols;
+        int rows;
+        
+        try {
+            stmt = conex.createStatement(ResultSet.CONCUR_UPDATABLE,
+                                         ResultSet.TYPE_SCROLL_SENSITIVE);
+            rs = stmt.executeQuery(sql);
+            rsmd = rs.getMetaData();
+            
+            cols = rsmd.getColumnCount();
+            rs.last();
+            rows = rs.getRow();
+            resultQuery = new Object[rows + 1][cols];
+            
+            nombresCols = this.getNamesCols(rsmd);
+            System.arraycopy(nombresCols, 0, resultQuery[0], 0, cols);
+            
+            rs.first();
+            for (int i = 1; i < rows + 1; i++) {
+                for (int j = 0; j < cols; j++) {
+                    int type = rsmd.getColumnType(j + 1);
+                    switch(type) {
+                        case 4: resultQuery[i][j] = rs.getInt(j + 1);
+                                break;
+                        case 12: resultQuery[i][j] = rs.getString(j + 1);
+                                break;
+                        case 5: resultQuery[i][j] = rs.getInt(j + 1);
+                                break;
+                        case -5: resultQuery[i][j] = rs.getInt(j + 1);
+                                break;
+                        case -7: resultQuery[i][j] = rs.getBoolean(j + 1);
+                                break;
+                        case 8: resultQuery[i][j] = rs.getDouble(j + 1);
+                                break;
+                        case 0: resultQuery[i][j] = null;
+                                break;
+                        case 92: resultQuery[i][j] = new LocalTime(rs.getTime(j + 1));
+                                break; 
+                        case 91: resultQuery[i][j] = new LocalDate(rs.getDate(j + 1));
+                                break;
+                        default: resultQuery[i][j] = "Ahí quedo bien!";
+                                break;
+                    }
+                }
+                rs.next();
+            }   
+        }
+        catch(SQLException e) {
+            e.getMessage();
+        }
+        return resultQuery;
+    }
+    
+    /**
+     * 
+     * @param rsmd
+     * @return
+     * @throws SQLException 
+     */
+    private String[] getNamesCols(ResultSetMetaData rsmd) throws SQLException {
+        String[] nombres = null;
+        int cols;
+        
+        try {
+            cols = rsmd.getColumnCount();
+            nombres = new String[cols];
+            for (int i = 0; cols > i; i++) {
+                nombres[i] = rsmd.getColumnName(i + 1);
+            }
+        }
+        catch(SQLException e) {
+            e.getMessage();
+        }
+        return nombres;    
     }
 }

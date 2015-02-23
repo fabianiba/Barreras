@@ -25,12 +25,15 @@ public class Barreras {
         Conexion conexionActual;
         conexionActual = Conexion.getConexion();
         
-        String sql;
-        sql = "INSERT INTO test VALUES (5, 'Testea', 'Perez');";
-        conexionActual.realizarUpdate(sql);
+        Object[][] var = conexionActual.realizarQuery("Select * from testfecha;");
+        for (Object[] var1 : var) {
+            for (int j = 0; j < var[0].length; j++) {
+                System.out.println(var1[j]);
+            }
+        }
         
         
-        
+
     }
     
 }
