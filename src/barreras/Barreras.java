@@ -7,9 +7,7 @@ package barreras;
 
 import classes.Conexion;
 import java.sql.SQLException;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.Statement;
+
 
 /**
  *
@@ -27,17 +25,12 @@ public class Barreras {
         Conexion conexionActual;
         conexionActual = Conexion.getConexion();
         
-        Object[][] var;
-        var = conexionActual.realizarQuery("select * from testfecha;");
-        
-        
-        
+        Object[][] var = conexionActual.realizarQuery("Select * from testfecha;");
         for (Object[] var1 : var) {
             for (int j = 0; j < var[0].length; j++) {
                 System.out.println(var1[j]);
             }
         }
-        
         
         
     }

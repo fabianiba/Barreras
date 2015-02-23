@@ -13,8 +13,8 @@ import java.sql.SQLException;
  */
 public interface SQLModels {
     
-    boolean insert() throws SQLException;
-    boolean delete() throws SQLException;
-    boolean update() throws SQLException;
+    boolean insert(Conexion conex) throws SQLException;
+    boolean delete(Conexion conex) throws SQLException;
+    boolean update(Conexion conex) throws SQLException;
     
 }

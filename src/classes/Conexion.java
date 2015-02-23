@@ -12,6 +12,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.sql.SQLException;
 import java.lang.ClassNotFoundException;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 
 /**
  *
@@ -100,7 +102,29 @@ public class Conexion {
             rs.first();
             for (int i = 1; i < rows + 1; i++) {
                 for (int j = 0; j < cols; j++) {
-                    resultQuery[i][j] = rs.getString(j + 1);
+                    int type = rsmd.getColumnType(j + 1);
+                    switch(type) {
+                        case 4: resultQuery[i][j] = rs.getInt(j + 1);
+                                break;
+                        case 12: resultQuery[i][j] = rs.getString(j + 1);
+                                break;
+                        case 5: resultQuery[i][j] = rs.getInt(j + 1);
+                                break;
+                        case -5: resultQuery[i][j] = rs.getInt(j + 1);
+                                break;
+                        case -7: resultQuery[i][j] = rs.getBoolean(j + 1);
+                                break;
+                        case 8: resultQuery[i][j] = rs.getDouble(j + 1);
+                                break;
+                        case 0: resultQuery[i][j] = null;
+                                break;
+                        case 92: resultQuery[i][j] = new LocalTime(rs.getTime(j + 1));
+                                break; 
+                        case 91: resultQuery[i][j] = new LocalDate(rs.getDate(j + 1));
+                                break;
+                        default: resultQuery[i][j] = "Ahí quedo bien!";
+                                break;
+                    }
                 }
                 rs.next();
             }   
@@ -133,6 +157,4 @@ public class Conexion {
         }
         return nombres;    
     }
-
-    
 }
