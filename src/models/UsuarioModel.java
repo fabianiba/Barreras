@@ -20,8 +20,8 @@ public class UsuarioModel implements SQLModels {
     private String apellido;
     private String usuario;
     private String pass;
-    private LocalDate ult_fecha_conex;
-    private LocalDate ult_fecha_pass;
+    private LocalDate ult_fecha_conex = null;
+    private LocalDate ult_fecha_pass = null;
     private int celular;
     private String direccion;
 
@@ -116,8 +116,12 @@ public class UsuarioModel implements SQLModels {
                     + "'" + this.getNombre() + "'" + ","
                     + "'" + this.getApellido() + "'" + ","
                     + "'" + this.getUsuario() + "'" + ","
-                    + "'" + this.getPass() + "'" + ", NULL, NULL, NULL, NULL);";
-        
+                    + "'" + this.getPass() + "'" + ","
+                    + "'" + this.getUlt_fecha_conex() + "'" + ","
+                    + "'" + this.getUlt_fecha_pass() + "'" + ","
+                    + "'" + this.getCelular() + "'" + ","
+                    + "'" + this.getDireccion() + "'" + ");";
+                
         try{
             conex.realizarUpdate(sentencia);
             result = true;

@@ -7,7 +7,8 @@ package barreras;
 
 import classes.Conexion;
 import java.sql.SQLException;
-
+import models.UsuarioModel;
+import org.joda.time.LocalDate;
 
 /**
  *
@@ -25,12 +26,19 @@ public class Barreras {
         Conexion conexionActual;
         conexionActual = Conexion.getConexion();
         
-        Object[][] var = conexionActual.realizarQuery("Select * from testfecha;");
-        for (Object[] var1 : var) {
-            for (int j = 0; j < var[0].length; j++) {
-                System.out.println(var1[j]);
-            }
-        }
+        LocalDate b = new LocalDate();
+        
+        UsuarioModel a = new UsuarioModel("Juan", "Baglieto", "JB", "123a");
+        a.setCelular(375650040);
+        a.setDireccion("Avenida Siempreviva 123");
+        a.setUlt_fecha_conex(b);
+        a.setUlt_fecha_pass(b);
+        
+        a.insert(conexionActual);
+        
+        
+        
+        
         
         
 
